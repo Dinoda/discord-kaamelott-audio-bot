@@ -1,0 +1,2 @@
+class NotInChannelAuthorException(Exception):
+    pass
