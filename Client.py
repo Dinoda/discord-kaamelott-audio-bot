@@ -9,6 +9,12 @@ commands = {
     "random": False,
         }
 
+aliases = {
+    "r": "random",
+    "j": "join",
+    "l": "leave",
+        }
+
 class Client(discord.Client):
     def setSoundboard(self, soundboard):
         self.board = soundboard
@@ -24,11 +30,13 @@ class Client(discord.Client):
         print(f'Message from {message.author}: {message.content}')
         if isinstance(message.channel, discord.channel.DMChannel):
             await self.command(message, message.content)
-        elif message.content[0] == '/':
+        elif message.content[0] == '!':
             await self.command(message, message.content[1:])
 
     async def command(self, message, command):
         if not self.is_self(message.author):
+            if command in aliases.keys():
+                command = aliases[command]
             if command in commands.keys():
                 if not commands[command] or self.is_owner(message.author):
                     func = getattr(self, command)
