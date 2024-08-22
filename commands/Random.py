@@ -8,4 +8,4 @@ class RandomCommand(Command):
             raise NotInChannelAuthorException()
 
         sb = client.getSoundboard()
-        await client.voice_channel_play(channel, discord.FFmpegPCMAudio(sb.random()))
+        await client.voice_channel_play(channel, sb.random())

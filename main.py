@@ -4,6 +4,7 @@ from Client import Client
 
 import os
 import discord
+from Sound import Sound
 
 from commands.Join import JoinCommand
 from commands.Random import RandomCommand
