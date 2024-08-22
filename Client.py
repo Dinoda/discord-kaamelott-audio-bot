@@ -2,19 +2,19 @@ import discord
 from errors.NotInChannelAuthor import NotInChannelAuthorException
 
 class Client(discord.Client):
-    def addCommand(self, command):
+    def add_command(self, command):
         if not hasattr(self, "commands"):
             self.commands = []
         self.commands.append(command)
         self.commandNb = len(self.commands)
 
-    def getSoundboard(self):
+    def get_soundboard(self):
         return self.board
 
-    def setSoundboard(self, soundboard):
+    def set_soundboard(self, soundboard):
         self.board = soundboard
 
-    def setIds(self, client_id, owner_id):
+    def set_ids(self, client_id, owner_id):
         self.client_id = client_id
         self.owner_id = owner_id
 

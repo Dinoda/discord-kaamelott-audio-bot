@@ -1,41 +1,24 @@
-from dotenv import load_dotenv
-from Soundboard import Soundboard
-from Client import Client
+from init import *
 
-import os
-import discord
-from Sound import Sound
+import sys
 
 from commands.Join import JoinCommand
 from commands.Random import RandomCommand
 from commands.Leave import LeaveCommand
 
-# Load the environment variables
-load_dotenv()
+argc = len(sys.argv)
 
-self_id = int(os.getenv("self_id"))
-owner_id = int(os.getenv("owner_id"))
-token = os.getenv("token")
-soundspath = os.getenv("sounds")
+client = init_client(init_soundboard())
 
-# Load the soundboards
-soundboard = Soundboard(soundspath)
+if argc > 1:
+    args = sys.argv[1:]
+    if args[0] == 'manifesto':
+        client.get_soundboard()
+    print(args)
 
-# Initialise a basic client
-intents = discord.Intents.default()
-intents.message_content = True
+client.add_command(JoinCommand("join", "j"))
+client.add_command(RandomCommand("random", "r"))
+client.add_command(LeaveCommand("leave", "l"))
 
-client = Client(intents=intents)
-
-# Set client data
-client.setSoundboard(soundboard)
-client.setIds(self_id, owner_id)
-
-# Set client commands
-client.addCommand(JoinCommand("join", "j"))
-client.addCommand(RandomCommand("random", "r"))
-client.addCommand(LeaveCommand("leave", "l"))
-
-# Run client
-client.run(token)
+run_client(client)
 

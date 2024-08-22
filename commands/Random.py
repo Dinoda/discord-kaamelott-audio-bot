@@ -7,5 +7,5 @@ class RandomCommand(Command):
         if not channel:
             raise NotInChannelAuthorException()
 
-        sb = client.getSoundboard()
+        sb = client.get_soundboard()
         await client.voice_channel_play(channel, sb.random())
